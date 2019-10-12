@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { NgForm, FormArray } from '@angular/forms';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -7,6 +8,13 @@ import { NgForm, FormArray } from '@angular/forms';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
+
+  @Output() change: EventEmitter<string> = new EventEmitter<string>();
+  @Output() telNumber: EventEmitter<string> = new EventEmitter<string>();
+  recap: string;
+  valid: boolean = false;
+  errorMessage: string = "Quelques erreurs de saisies :";
+  numeroTel: string;
 
   constructor() { }
 
@@ -23,14 +31,22 @@ export class FormComponent implements OnInit {
     var tel = false;
     var pwd = false;
     var confirmPdw = false;
-    var recap: string;
+
+    var nomError: string = "";
+    var prenomError: string = "";
+    var adresseError: string = "";
+    var cpError: string = "";
+    var loginError: string = "";
+    var emailError: string = "";
+    var telError: string = "";
+    var pwdError: string = "";
 
     if (userForm.value.Name.length > 1) {
       nom = true;
       console.log("name ok");
     }
     else {
-      alert("Le nom doit être renseigné et faire plus de 1 caractere");
+      nomError = "Le nom doit être renseigné et faire plus de 1 caractere";
     }
 
     if (userForm.value.Prenom.length > 1) {
@@ -38,7 +54,7 @@ export class FormComponent implements OnInit {
       console.log("Prenom ok");
     }
     else {
-      alert("Le prenom doit être renseigné et faire plus de 1 caractere");
+      prenomError = "Le prenom doit être renseigné et faire plus de 1 caractere";
     }
 
     if (userForm.value.Adresse.length > 5) {
@@ -46,7 +62,7 @@ export class FormComponent implements OnInit {
       console.log("Adresse ok");
     }
     else {
-      alert("L'adresse doit être renseignée et faire plus de 5 caracteres");
+      adresseError = "L'adresse doit être renseignée et faire plus de 5 caracteres";
     }
 
     if (userForm.value.Cp.length == 5) {
@@ -54,7 +70,7 @@ export class FormComponent implements OnInit {
       console.log("Cp ok");
     }
     else {
-      alert("Le code postal doit etre de 5 caracteres");
+      cpError = "Le code postal doit etre de 5 caracteres";
     }
 
     if (userForm.value.Login.length > 2) {
@@ -62,7 +78,7 @@ export class FormComponent implements OnInit {
       console.log("Login ok");
     }
     else {
-      alert("Le login doit etre supérieur à 2 caracteres");
+      loginError = "Le login doit etre supérieur à 2 caracteres";
     }
     
     if (this.checkEmail(userForm.value.Email)) {
@@ -70,14 +86,14 @@ export class FormComponent implements OnInit {
       console.log("Email ok");
     }
     else {
-      alert("Erreur dans l'email");
+      emailError = "Erreur dans l'email, il n'est pas de la bonne forme";
     }
     if (this.checkTel(userForm.value.Tel)) {
       tel = true;
       console.log("Tel ok");
     }
     else {
-      alert("Erreur dans le tel");
+      telError = "Erreur dans le tel, il n'est pas de la bonne forme";
     }
     if (this.checkPassword(userForm.value.Pwd, userForm.value.ConfirmPass)) {
       pwd = true;
@@ -85,14 +101,50 @@ export class FormComponent implements OnInit {
       console.log("ok");
     }
     else {
-      alert("Les mots de passes doivent être les mêmes et supérieurs à 7 caracteres");
+      pwdError = "Les mots de passes doivent être les mêmes et supérieurs à 7 caracteres";
     }
     if (nom && prenom && adresse && cp && login && email && tel && pwd && confirmPdw) {
       alert("Tout est bon");
-      recap = "Nom : " + nom + ", prenom : " + prenom + ", adresse : " + adresse + ", cp : " + cp + ", login : " + login + ", email : " + email + ", tel : " + tel;
+      this.recap = "Nom : " + userForm.value.Name + ", prenom : " + userForm.value.Prenom + ", adresse : " + userForm.value.Adresse + ", cp : " + userForm.value.Cp + ", login : " + userForm.value.Login + ", email : " + userForm.value.Email;
+      this.change.emit(this.recap);
+      this.numeroTel = userForm.value.Tel;
+      this.telNumber.emit(this.numeroTel);
     }
     else {
       alert("Vérifiez vos saisies");
+      this.valid = true;
+      var nomError: string;
+      var prenomError: string;
+      var adresseError: string;
+      var cpError: string;
+      var loginError: string;
+      var emailError: string;
+      var telError: string;
+      var pwdError: string;
+      if (nomError != "") {
+        this.errorMessage += " " + nomError;
+      }
+      if (prenomError != "") {
+        this.errorMessage += " " + prenomError;
+      }
+      if (adresseError != "") {
+        this.errorMessage += " " + adresseError;
+      }
+      if (cpError != "") {
+        this.errorMessage += " " + cpError;
+      }
+      if (loginError != "") {
+        this.errorMessage += " " + loginError;
+      }
+      if (emailError != "") {
+        this.errorMessage += " " + emailError;
+      }
+      if (telError != "") {
+        this.errorMessage += " " + telError;
+      }
+      if (pwdError != "") {
+        this.errorMessage += " " + pwdError;
+      }
     }
   }
 

@@ -79,8 +79,10 @@
                 </div>
             </form>
             <div>
-                <app-data-recap [recapForm]="recap"></app-data-recap>
+                <app-data-recap [recapForm]="recap" [tel]="numeroTel"></app-data-recap>
             </div>
+
+            <div *ngIf="valid">{{ errorMessage }}</div>
         </div>
     </div>
 </div>
