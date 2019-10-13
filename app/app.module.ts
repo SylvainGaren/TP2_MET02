@@ -8,6 +8,7 @@ import { DataRecapComponent } from './data-recap/data-recap.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 import { TetiereComponent } from './tetiere/tetiere.component';
+import { PhoneFormatPipe } from './format.pipe';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TetiereComponent } from './tetiere/tetiere.component';
     FormComponent,
     DataRecapComponent,
     FooterComponent,
-    TetiereComponent
+    TetiereComponent,
+    PhoneFormatPipe
   ],
   imports: [
     BrowserModule,

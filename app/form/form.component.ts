@@ -13,12 +13,14 @@ export class FormComponent implements OnInit {
   @Output() change: EventEmitter<string> = new EventEmitter<string>();  // evenement qui permettra d'envoyer les informations remplies par l'utilisateur (ormis le téléphone)
   @Output() telNumber: EventEmitter<string> = new EventEmitter<string>(); // evenement qui permettra d'envoyer le numéro de téléphone
   @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>(); // evenement qui permettra d'afficher ou non les informations saisies par l'utilisateur dans un récap
+  @Output() valPaysFather: EventEmitter<string> = new EventEmitter<string>(); // evenement qui permettra d'envoyer la valeur du pays saisie par l'utilisateur
 
   recap: string;  // valeur récapitulative des données saisies par l'utilisateur
   valid: boolean = false;
   errorMessage: string = "Quelques erreurs de saisies :";
   numeroTel: string;
   validChangeVal: boolean = false;
+  valPays: string;
 
   constructor() { }
 
@@ -117,6 +119,8 @@ export class FormComponent implements OnInit {
       this.telNumber.emit(this.numeroTel);
       this.validChangeVal = true;
       this.validChange.emit(this.validChangeVal);
+      this.valPays = userForm.value.pays;
+      this.valPaysFather.emit(this.valPays);
     }
     else {
       alert("Vérifiez vos saisies");

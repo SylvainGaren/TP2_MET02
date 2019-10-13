@@ -68,10 +68,10 @@
                 <div class="form-group">
                     <label>Pays :</label>
                     <select ngModel name="pays" class="form-control" required>
-                        <option value="F">France</option>
-                        <option value="I">Inde</option>
-                        <option value="E">Etats-Unis</option>
-                        <option value="B">Brésil</option>
+                        <option value="France">France</option>
+                        <option value="Inde">Inde</option>
+                        <option value="Etats-Unis">Etats-Unis</option>
+                        <option value="Brésil">Brésil</option>
                     </select>
                 </div>
 
@@ -83,7 +83,7 @@
             </form>
             <!-- composant fils qui va récapituler toutes les données, envoie des informations à celui-ci, valeurs en OUTPUT -->
             <div>
-                <app-data-recap [recapForm]="recap" [tel]="numeroTel" [validSaisie]="validChangeVal"></app-data-recap>
+                <app-data-recap [recapForm]="recap" [tel]="numeroTel" [pays]="valPays" [validSaisie]="validChangeVal"></app-data-recap>
             </div>
             <!-- Directive structurelle, afficher si besoin un message d'erreur dans le cas d'erreurs de saisies -->
             <div *ngIf="valid">{{ errorMessage }}</div>

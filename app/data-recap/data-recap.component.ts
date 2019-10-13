@@ -15,6 +15,7 @@ export class DataRecapComponent implements OnInit {
   @Input() recapForm: string;
   @Input() tel: string;
   @Input() validSaisie: boolean;
+  @Input() pays: string;
 
   constructor() { }
 
