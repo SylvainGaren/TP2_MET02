@@ -9,12 +9,16 @@ import { EventEmitter } from '@angular/core';
 })
 export class FormComponent implements OnInit {
 
-  @Output() change: EventEmitter<string> = new EventEmitter<string>();
-  @Output() telNumber: EventEmitter<string> = new EventEmitter<string>();
-  recap: string;
+  // Valeurs en OUTPUT pour envoyer des informations au fils qui les récupérera dans un INPUT
+  @Output() change: EventEmitter<string> = new EventEmitter<string>();  // evenement qui permettra d'envoyer les informations remplies par l'utilisateur (ormis le téléphone)
+  @Output() telNumber: EventEmitter<string> = new EventEmitter<string>(); // evenement qui permettra d'envoyer le numéro de téléphone
+  @Output() validChange: EventEmitter<boolean> = new EventEmitter<boolean>(); // evenement qui permettra d'afficher ou non les informations saisies par l'utilisateur dans un récap
+
+  recap: string;  // valeur récapitulative des données saisies par l'utilisateur
   valid: boolean = false;
   errorMessage: string = "Quelques erreurs de saisies :";
   numeroTel: string;
+  validChangeVal: boolean = false;
 
   constructor() { }
 
@@ -22,6 +26,7 @@ export class FormComponent implements OnInit {
   }
 
   onFormSubmit(userForm:NgForm) {
+    // valeurs booléennes pour chacun des champs pour valider ou non la saisie d'informations par l'utilisateur
     var nom = false;
     var prenom = false;
     var adresse = false;
@@ -32,6 +37,7 @@ export class FormComponent implements OnInit {
     var pwd = false;
     var confirmPdw = false;
 
+    // en fonction des erreurs présentes on remplit différents messages d'erreur qui seront ensuite affichés
     var nomError: string = "";
     var prenomError: string = "";
     var adresseError: string = "";
@@ -109,6 +115,8 @@ export class FormComponent implements OnInit {
       this.change.emit(this.recap);
       this.numeroTel = userForm.value.Tel;
       this.telNumber.emit(this.numeroTel);
+      this.validChangeVal = true;
+      this.validChange.emit(this.validChangeVal);
     }
     else {
       alert("Vérifiez vos saisies");
@@ -186,6 +194,7 @@ export class FormComponent implements OnInit {
   }
 
   // vérifier que tous les champs sont renseignés
+  // ne fonctionne pas, je n'ai pas réussi à accéder aux éléments un par un dans le foreach
   checkFields(tab: Array<string>) {
     tab.forEach(function(elem) {
       console.log(elem);

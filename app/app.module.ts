@@ -7,13 +7,15 @@ import { FormComponent } from './form/form.component';
 import { DataRecapComponent } from './data-recap/data-recap.component';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+import { TetiereComponent } from './tetiere/tetiere.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
     DataRecapComponent,
-    FooterComponent
+    FooterComponent,
+    TetiereComponent
   ],
   imports: [
     BrowserModule,

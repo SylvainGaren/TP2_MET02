@@ -1,7 +1,8 @@
+<!-- Composant formulaire, premier TP d'angular, partie HTML -->
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-
+            <!-- Le formulaire sera lié en action avec un bouton submit qui enclenchera la fonction onFormSubmit en lui envoyant les informations remplies par l'utilisateur -->
             <form #userForm="ngForm" (ngSubmit)="onFormSubmit(userForm)">
                 <div class="form-group">
                     <label>Nom :</label>
@@ -23,6 +24,7 @@
                     <input type="text" ngModel name="Cp" id="Cp" class="form-control" required>
                 </div>
 
+                <!-- Mise en place d'un select pour proposer un choix sous menu déroulant -->
                 <div class="form-group">
                     <label>Ville :</label>
                     <select ngModel name="Ville" class="form-control" required>
@@ -62,6 +64,7 @@
                     <input type="password" ngModel name="ConfirmPass" id="ConfirmPass" class="form-control" required>
                 </div>
 
+                <!-- Menu déroulant select -->
                 <div class="form-group">
                     <label>Pays :</label>
                     <select ngModel name="pays" class="form-control" required>
@@ -78,10 +81,11 @@
                     <button type="button" class="btn btn-danger" (click)="resetUserForm(userForm)">Reset</button>
                 </div>
             </form>
+            <!-- composant fils qui va récapituler toutes les données, envoie des informations à celui-ci, valeurs en OUTPUT -->
             <div>
-                <app-data-recap [recapForm]="recap" [tel]="numeroTel"></app-data-recap>
+                <app-data-recap [recapForm]="recap" [tel]="numeroTel" [validSaisie]="validChangeVal"></app-data-recap>
             </div>
-
+            <!-- Directive structurelle, afficher si besoin un message d'erreur dans le cas d'erreurs de saisies -->
             <div *ngIf="valid">{{ errorMessage }}</div>
         </div>
     </div>

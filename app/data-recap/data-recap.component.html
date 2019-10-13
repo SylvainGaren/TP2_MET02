@@ -1,6 +1,7 @@
-<div>
+<!-- Affichage des données saisies par l'utilisateur -->
+<div *ngIf="validSaisie">
     <p>Voici le récapitulatif des informations : {{ recapForm }}</p>
-</div>
-<div *ngNew>
-    <p>Voile numéro de telephone : {{ tel }}</p>
+    <div>
+        <p>Voile numéro de telephone : {{ tel }}</p>
+    </div>
 </div>
